@@ -24,3 +24,8 @@ block_t hash_round(const block_t& i_prev_hash, const block_t& i_message)
                  ^ i_message
                  ^ i_prev_hash;
   }
+
+block_t hash(const message_t& i_message)
+  {
+  return block_t();
+  }
