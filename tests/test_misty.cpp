@@ -57,7 +57,7 @@ TEST_CASE("Encryption is performed", "[misty]")
     mblock_t keys[] = {0x9DC15B68, 0x98CF9F97, 0x67306068, 0x623EA497};
     mblock_t ground_truth_L[] = {0x1E2CB45A, 0x75FE1E52, 0xFCFA6881, 0xA26EB696};
 
-    for(size_t i = 0; i < 3; i++)
+    for(size_t i = 0; i < 4; i++)
       {
       mblock_t new_L = perform_round(L, R, keys[i]);
 
