@@ -3,8 +3,11 @@
 //
 
 #include "hash.h"
+#include "misty.h"
 
 block_t hash_round(const block_t& i_prev_hash, const block_t& i_message)
   {
-  return block_t();
+  return encrypt(i_prev_hash ^ i_message, i_prev_hash)
+                 ^ i_message
+                 ^ i_prev_hash;
   }
