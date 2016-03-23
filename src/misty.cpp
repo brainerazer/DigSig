@@ -70,6 +70,16 @@ mblock_t perform_round(const mblock_t& i_left_block, const mblock_t& i_right_blo
 
 block_t encrypt(const block_t &i_message, const block_t &i_key)
   {
-  return block_t();
+  mblock_t L = block_low(i_message);
+  mblock_t R = block_high(i_message);
+
+  for(size_t i = 0; i < 4; i++)
+    {
+    mblock_t new_L = perform_round(L, R, get_round_key(i_key, i));
+    R = L;
+    L = new_L;
+    }
+
+  return merge_mblocks(R, L);
   }
 
