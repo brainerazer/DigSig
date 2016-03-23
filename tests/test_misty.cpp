@@ -4,6 +4,7 @@
 #include "catch.hpp"
 
 #include "../src/common.h"
+#include "../src/bitwise.h"
 #include "../src/misty.h"
 
 TEST_CASE("Round key is generated", "[misty]")
@@ -41,5 +42,28 @@ TEST_CASE("Round key is generated", "[misty]")
     mblock_t ground_truth_key_3 = 0xB0A68CC9;
     REQUIRE(key_3 == ground_truth_key_3);
     }
+  }
 
+TEST_CASE("Encryption is performed", "[misty]")
+  {
+  block_t message = 0xD6F9A6E3F4AB023A;
+  block_t global_key = 0x98CF9F979DC15B68;
+
+  SECTION("Rounds give correct outputs")
+    {
+    mblock_t L = block_low(message); // L0
+    mblock_t R = block_high(message); // R0
+
+    mblock_t keys[] = {0x9DC15B68, 0x98CF9F97, 0x67306068, 0x623EA497};
+    mblock_t ground_truth_L[] = {0x1E2CB45A, 0x75FE1E52, 0xFCFA6881, 0xA26EB696};
+
+    for(size_t i = 0; i < 3; i++)
+      {
+      mblock_t new_L = perform_round(L, R, keys[i]);
+
+      REQUIRE(new_L == ground_truth_L[i]);
+      R = L;
+      L = new_L;
+      }
+    }
   }
