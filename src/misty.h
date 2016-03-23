@@ -8,6 +8,7 @@
 #include "common.h"
 
 mblock_t get_round_key(const block_t& i_key, size_t i_round); // round in [0..3]
+mblock_t round_func(const mblock_t& i_key, const mblock_t& i_data);
 
 mblock_t perform_round(const mblock_t& i_left_block,
                        const mblock_t& i_right_block, const mblock_t& i_key); // returns new L block

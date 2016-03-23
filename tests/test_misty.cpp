@@ -51,15 +51,15 @@ TEST_CASE("Encryption is performed", "[misty]")
 
   SECTION("Rounds give correct outputs")
     {
-    mblock_t L = block_low(message); // L0
-    mblock_t R = block_high(message); // R0
+    mblock_t L = 0xF4AB023A; // L0
+    mblock_t R = 0xD6F9A6E3; // R0
 
-    mblock_t keys[] = {0x9DC15B68, 0x98CF9F97, 0x67306068, 0x623EA497};
+    mblock_t round_keys[] = {0x9DC15B68, 0x98CF9F97, 0x67306068, 0x623EA497};
     mblock_t ground_truth_L[] = {0x1E2CB45A, 0x75FE1E52, 0xFCFA6881, 0xA26EB696};
 
     for(size_t i = 0; i < 4; i++)
       {
-      mblock_t new_L = perform_round(L, R, keys[i]);
+      mblock_t new_L = perform_round(L, R, round_keys[i]);
 
       REQUIRE(new_L == ground_truth_L[i]);
       R = L;
