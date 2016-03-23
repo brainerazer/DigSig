@@ -46,9 +46,6 @@ TEST_CASE("Round key is generated", "[misty]")
 
 TEST_CASE("Encryption is performed", "[misty]")
   {
-  block_t message = 0xD6F9A6E3F4AB023A;
-  block_t global_key = 0x98CF9F979DC15B68;
-
   SECTION("Rounds give correct outputs")
     {
     mblock_t L = 0xF4AB023A; // L0
@@ -65,5 +62,15 @@ TEST_CASE("Encryption is performed", "[misty]")
       R = L;
       L = new_L;
       }
+    }
+
+  SECTION("Encryption is done correctly")
+    {
+    block_t message = 0xA26EB696FCFA6881;
+    block_t key = 0xE31680C5B1B343F9;
+    block_t ground_truth_encrypted = 0xE7BD867A86E36FF6;
+
+    block_t encrypted = encrypt(message, key);
+    REQUIRE(encrypted == ground_truth_encrypted);
     }
   }
