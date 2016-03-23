@@ -14,9 +14,9 @@ TEST_CASE("Test message padding", "[hash]")
 
 TEST_CASE("Test a single hash round", "[hash]")
   {
-  block_t prev_hash = 0x75B557A7DD5B3D84;
-  block_t message = 0x52596A697439364E;
-  block_t ground_truth_hash = 0xA7EA999A73039C89;
+  block_t prev_hash = 0x843D5BDDA757B575;
+  block_t message = 0x4E363974696A5952;
+  block_t ground_truth_hash = 0x899C03739A99EAA7;
 
   block_t result = hash_round(prev_hash, message);
   REQUIRE(result == ground_truth_hash);
