@@ -58,3 +58,13 @@ TEST_CASE("Test hash overall", "[hash]")
 
   REQUIRE(hash(i_message) == ground_truth_hash);
   }
+
+TEST_CASE("Test hash_file function", "[hash]")
+  {
+  block_t ground_truth_hash = 0x323E3502DE41AF2F;
+
+  const char filename[] = "./random_data.txt";
+  block_t hash_result = hash_file(filename);
+
+  REQUIRE(hash_result == ground_truth_hash);
+  }

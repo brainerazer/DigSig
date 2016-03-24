@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <fstream>
 #include "hash.h"
 #include "misty.h"
 
@@ -60,4 +61,19 @@ block_t hash(const message_t& i_message)
     }
 
   return H;
+  }
+
+// Very inefficient implementation due to copying file into memory,
+// albeit very quick to write.
+// Should be optimized later
+uint64_t hash_file(const char* ip_filename)
+  {
+  std::ifstream in(ip_filename, std::ios::binary|std::ios::ate); // open at the end of the file
+  auto pos = in.tellg();
+  std::vector<uint8_t> result(pos);
+
+  in.seekg(0, std::ios::beg);
+  in.read(reinterpret_cast<char*>(&result[0]), pos);
+
+  return hash(result);
   }
