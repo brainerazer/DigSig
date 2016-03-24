@@ -10,9 +10,6 @@ set(TEST_FILES tests/test.cpp tests/test_misty.cpp tests/test_hash.cpp)
 add_library(DigSig_Shared SHARED ${SOURCE_FILES})
 add_library(DigSig_Static STATIC ${SOURCE_FILES})
 
-add_executable(DigSig main.cpp)
-target_link_libraries(DigSig DigSig_Static)
-
 add_executable(DigSig_Test ${TEST_FILES})
 target_link_libraries(DigSig_Test DigSig_Static)
 
