@@ -2,8 +2,30 @@
 // Created by Bohdan Rybak on 24.03.2016.
 //
 
+#include <iostream>
 #include "hash.h"
 #include "misty.h"
+
+namespace
+  {
+      typedef std::vector<block_t> hash_input_t;
+
+      hash_input_t convert_padded_message(const message_t& i_message)
+        {
+        hash_input_t result;
+        for(size_t i = 0; i < i_message.size(); i += 8)
+        {
+          block_t block = 0;
+          for (size_t j = 0; j < 8; j++) // todo rewrite into a separate function
+            {
+            block |= ((block_t) i_message[i + j]) << (j * 8);
+            }
+          result.push_back(block);
+        }
+
+        return result;
+        }
+  }
 
 message_t pad_message(const message_t& i_message)
   {
@@ -27,5 +49,15 @@ block_t hash_round(const block_t& i_prev_hash, const block_t& i_message)
 
 block_t hash(const message_t& i_message)
   {
-  return block_t();
+  message_t padded_message = pad_message(i_message);
+  hash_input_t hash_input = convert_padded_message(padded_message);
+
+  block_t H = 0;
+
+  for(block_t block : hash_input)
+    {
+    H = hash_round(H, block);
+    }
+
+  return H;
   }
