@@ -54,7 +54,7 @@ TEST_CASE("Test hash overall", "[hash]")
            0x4B, 0x6C, 0x4C, 0x58, 0x4D, 0x68, 0x62, 0x73,
            0x0D ,0x0A};
 
-  block_t ground_truth_hash = 0x2FAF41DE02353E32;
+  block_t ground_truth_hash = 0x323E3502DE41AF2F;
 
   REQUIRE(hash(i_message) == ground_truth_hash);
   }
